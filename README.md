@@ -2,10 +2,11 @@
 
 Installation (Windows)
 
-1) Install Chocolatey (https://chocolatey.org/install)
-2) > choco install chromedriver
-3) > choco install ruby --version '2.6.5.1'
-4) > refreshenv
-5) > bundle install
-6) edit connect.rb to ensure variables have correct values
-7) > ruby connect.rb
+Install Chocolatey (https://chocolatey.org/install)
+> choco install chromedriver
+> choco install ruby --version '2.6.5.1'
+> refreshenv
+> bundle install
+Edit connect.rb to ensure variables have correct values
+> ruby connect.rb
+Do not close the console window, it will cause disconnect
