@@ -1,5 +1,5 @@
 require 'watir'
-require 'pry'
+#require 'pry'
 
 OPENCONNECT = 'C:/Program Files (x86)/OpenConnect-GUI/openconnect.exe'
 USERNAME = 'ikokorev@luxoft.com'
