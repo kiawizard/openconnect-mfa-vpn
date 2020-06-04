@@ -10,6 +10,4 @@ Installation (Windows)
 6) > cd openconnect-mfa-vpn
 7) > bundle install
 8) Edit connect.rb to ensure variables have correct values
-9) Ensure your command prompt runs with Administrator privileges, or create a shortcut, click rmb on it, Properties, Advanced, Run as administrator
-10) > ruby connect.rb
-11) Do not close the console window, it will cause disconnect
+9) Create new shortcut for "ruby connect.rb" without quotes. Set any name for it. Open properties, change "Start in" to the directory where you have connect.rb. Click Advanced button in the same window and turn on "Run as Adinistrator"
