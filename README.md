@@ -1,4 +1,4 @@
-# luxoft-mfa-vpn
+# openconnect-mfa-vpn for Windows
 
 Installation (Windows)
 
