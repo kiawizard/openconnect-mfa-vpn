@@ -1,12 +1,13 @@
 require 'watir'
-#require 'pry'
+require 'pry'
 
 OPENCONNECT = 'C:/Program Files (x86)/OpenConnect-GUI/openconnect.exe'
 USERNAME = 'ikokorev@luxoft.com'
 PASSWORD = 'supersecurepassword'
+SERVER = 'mfa-vpn.luxoft.com'
 
 browser = Watir::Browser.new #(:chrome, headless: true)
-browser.goto('https://mfa-vpn.luxoft.com/+CSCOE+/saml/sp/login?tgname=azure2fa')
+browser.goto("https://#{SERVER}/+CSCOE+/saml/sp/login?tgname=azure2fa")
 browser.text_field(name: 'loginfmt').set(USERNAME)
 browser.input(type: 'submit').click
 browser.text_field(type: 'password').when_present.set(PASSWORD)
@@ -21,6 +22,11 @@ IO.popen("taskkill /im openconnect.exe /f")
 sleep(1)
 
 puts "Connecting with OpenConnect..."
-IO.popen("\"#{OPENCONNECT}\" -u #{USERNAME} -p #{PASSWORD} -C #{cookie} mfa-vpn.luxoft.com").each do |line|
-  p line.chomp
-end
+#IO.popen("\"#{OPENCONNECT}\" -u #{USERNAME} -p #{PASSWORD} -C #{cookie} mfa-vpn.luxoft.com").each do |line|
+#  p line.chomp
+#end
+
+pid = spawn "powershell -Command \"Start-Process -WindowStyle hidden -FilePath \\\"#{OPENCONNECT}\\\" -ArgumentList \\\"-u #{USERNAME} -p #{PASSWORD} -C #{cookie} #{SERVER}\\\" \""
+Process.detach(pid)
+puts "Done, OpenConnect will establish connection in several seconds. This window will close automatically"
+sleep 10
