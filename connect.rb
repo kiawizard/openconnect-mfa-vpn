@@ -1,10 +1,18 @@
 require 'watir'
 require 'pry'
 
+def get_param(key) 
+  arg = ARGV.select{|a| a.include?("--#{key}=")}.first
+  if arg
+    return arg.split('=').last
+  end
+  return nil
+end
+
 OPENCONNECT = 'C:/Program Files (x86)/OpenConnect-GUI/openconnect.exe'
-USERNAME = 'ikokorev@luxoft.com'
-PASSWORD = 'supersecurepassword'
-SERVER = 'mfa-vpn.luxoft.com'
+USERNAME = get_param('username') || 'ikokorev@luxoft.com'
+PASSWORD = get_param('password') || 'supersecurepassword'
+SERVER = get_param('server') || 'mfa-vpn.luxoft.com'
 
 browser = Watir::Browser.new #(:chrome, headless: true)
 browser.goto("https://#{SERVER}/+CSCOE+/saml/sp/login?tgname=azure2fa")
