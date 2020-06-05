@@ -9,5 +9,4 @@ Installation (Windows)
 5) > git clone https://github.com/kiawizard/openconnect-mfa-vpn.git
 6) > cd openconnect-mfa-vpn
 7) > bundle install
-8) Edit connect.rb to ensure variables have correct values
-9) Create new shortcut for "ruby connect.rb" without quotes. Set any name for it. Open properties, change "Start in" to the directory where you have connect.rb. Click Advanced button in the same window and turn on "Run as Adinistrator"
+8) Create new shortcut for "ruby connect.rb --username=someone@luxoft.com --password=XxXxXxX" without quotes. Set any name for it. Open properties, change "Start in" to the directory where you have connect.rb. Click Advanced button in the same window and turn on "Run as Adinistrator"
