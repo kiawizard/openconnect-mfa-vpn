@@ -1,5 +1,5 @@
 require 'watir'
-require 'pry'
+#require 'pry'
 
 def get_param(key) 
   arg = ARGV.select{|a| a.include?("--#{key}=")}.first
@@ -15,8 +15,8 @@ PASSWORD = get_param('password') || 'supersecurepassword'
 SERVER = get_param('server') || 'mfa-vpn.luxoft.com'
 
 browser = Watir::Browser.new #(:chrome, headless: true)
-browser.goto("https://#{SERVER}/+CSCOE+/saml/sp/login?tgname=azure2fa")
-browser.text_field(name: 'loginfmt').set(USERNAME)
+browser.goto("https://#{SERVER}")
+browser.text_field(name: 'loginfmt').when_present.set(USERNAME)
 browser.input(type: 'submit').click
 browser.text_field(type: 'password').when_present.set(PASSWORD)
 browser.span(id: 'submitButton').click
