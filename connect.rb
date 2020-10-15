@@ -30,7 +30,7 @@ IO.popen("taskkill /im openconnect.exe /f")
 sleep(1)
 
 puts "Connecting with OpenConnect..."
-#IO.popen("\"#{OPENCONNECT}\" -u #{USERNAME} -p #{PASSWORD} -C #{cookie} mfa-vpn.luxoft.com").each do |line|
+#IO.popen("\"#{OPENCONNECT}\" -u #{USERNAME} -p #{PASSWORD} -C #{cookie} #{SERVER}").each do |line|
 #  p line.chomp
 #end
 
