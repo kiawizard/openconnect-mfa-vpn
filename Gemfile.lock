@@ -1,10 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ffi (1.15.5)
     ffi (1.15.5-x64-mingw32)
     regexp_parser (2.6.2)
     rexml (3.2.5)
-    rotp (6.2.2)
+    rotp (6.3.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.7.1)
       rexml (~> 3.2, >= 3.2.5)
@@ -17,6 +18,7 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   ffi
