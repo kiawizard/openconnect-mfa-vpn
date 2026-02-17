@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-#gem 'pry'
-gem 'watir'
+#gem 'watir'
 gem 'ffi' # required for Windows
 gem 'rotp'

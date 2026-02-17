@@ -1,53 +1,42 @@
-require 'watir'
-require 'rotp'
-require 'pry'
+require 'json'
+require 'uri'
+require 'net/http'
+require 'base64'
 
 def get_param(key) 
   arg = ARGV.select{|a| a.include?("--#{key}=")}.first
   if arg
-    return arg.split('=').last
+    return arg.split('=')[1..].join('=')
   end
   return nil
 end
 
-OPENCONNECT = 'C:/Program Files (x86)/OpenConnect-GUI/openconnect.exe'
+OPENCONNECT = "C:/Program Files/OpenConnect-GUI/openconnect.exe"
 USERNAME = get_param('username') || 'ikokorev@luxoft.com'
 PASSWORD = get_param('password') || 'supersecurepassword'
-SERVER = get_param('server') || 'mfa-vpn.luxoft.com'
+SERVER = get_param('server') || 'vpn-oro.luxoft.com'
 TOTP_SECRET = get_param('totp')
 
-Watir.default_timeout = 300
-browser = Watir::Browser.new #(:chrome, headless: true)
-browser.goto("https://#{SERVER}")
-browser.text_field(name: 'loginfmt').set(USERNAME)
-browser.input(type: 'submit').click
-sleep(5)
-browser.text_field(type: 'password').set(PASSWORD)
-browser.span(id: 'submitButton').click
+uri = URI('http://192.168.10.51:4567/')
+http = Net::HTTP.new(uri.host, uri.port)
 
-
-if TOTP_SECRET
-  totp = ROTP::TOTP.new(TOTP_SECRET, issuer: "ROTP")
-  browser.text_field(name: 'otc').set(totp.now)
-  browser.input(type: 'submit').click
+request = Net::HTTP::Get.new(uri.path)
+response = http.request(request).body
+if response == 'Hello World!'
+  response = Net::HTTP.post_form(uri, {server: SERVER, username: USERNAME, password: Base64.encode64(PASSWORD).split('=').first, secret_2fa: TOTP_SECRET})
+  cookie = response.body
+else
+  puts "Server not responsing right: #{response}"
+  return
 end
 
-browser.button(value: 'Continue').click
-
-cookie = browser.cookies['webvpn'][:value]
-browser.close
 puts "Got MFA cookie #{cookie}"
 
 puts "Closing OpenConnect in case it is running"
 IO.popen("taskkill /im openconnect.exe /f")
-sleep(1)
+sleep(5)
 
 puts "Connecting with OpenConnect..."
-IO.popen("\"#{OPENCONNECT}\" -u #{USERNAME} -p #{PASSWORD} -C #{cookie} #{SERVER}").each do |line| #
+IO.popen("\"#{OPENCONNECT}\" -u \"#{USERNAME}\" -p \"#{PASSWORD}\" -C \"#{cookie}\" --interface=\"OpenConnect\" \"#{SERVER}\"").each do |line| #
   p line.chomp
 end
-
-#pid = spawn "powershell -Command \"Start-Process -WindowStyle hidden -FilePath \\\"#{OPENCONNECT}\\\" -ArgumentList \\\"-u #{USERNAME} -p #{PASSWORD} -C #{cookie} #{SERVER}\\\" \""
-#Process.detach(pid)
-#puts "Done, OpenConnect will establish connection in several seconds. This window will close automatically"
-#sleep 10

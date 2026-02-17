@@ -1,27 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    ffi (1.15.5-x64-mingw32)
-    regexp_parser (2.6.2)
-    rexml (3.2.5)
-    rotp (6.2.2)
-    rubyzip (2.3.2)
-    selenium-webdriver (4.7.1)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
-    watir (7.2.2)
-      regexp_parser (>= 1.2, < 3)
-      selenium-webdriver (~> 4.2)
-    websocket (1.2.9)
+    ffi (1.17.3-x64-mingw-ucrt)
+    rotp (6.3.0)
 
 PLATFORMS
-  x64-mingw32
+  x64-mingw-ucrt
 
 DEPENDENCIES
   ffi
   rotp
-  watir
+
+CHECKSUMS
+  ffi (1.17.3-x64-mingw-ucrt) sha256=5f1d7d067a9a1058ad183dba25b05557cd51c85fc1768c49338eabc1cf242d7c
+  rotp (6.3.0) sha256=75d40087e65ed0d8022c33055a6306c1c400d1c12261932533b5d6cbcd868854
 
 BUNDLED WITH
-   2.2.33
+  4.0.3
